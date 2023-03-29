@@ -1,10 +1,15 @@
-import 'package:calculadora_1/widgets/CalcButton.dart';
+import 'package:calculadora_1/responsive.dart';
+import 'package:calculadora_1/widgets/calc_button.dart';
+import 'package:calculadora_1/widgets/dialog_info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 void main() {
-  runApp(const CalcApp());
+  runApp(const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Calculadora",
+      home: CalcApp()));
 }
 
 class CalcApp extends StatefulWidget {
@@ -34,7 +39,7 @@ class _CalcAppState extends State<CalcApp> {
     Parser p = Parser();
     Expression exp = p.parse(_expression);
     ContextModel cm = ContextModel();
-     setState(() {
+    setState(() {
       _history = _expression;
       _expression = exp.evaluate(EvaluationType.REAL, cm).toString();
     });
@@ -42,177 +47,239 @@ class _CalcAppState extends State<CalcApp> {
 
   void numClick(String text) {
     setState(() {
-      
-        _expression += text;
-      
+      _expression += text;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Calculadora",
-      home: Scaffold(
-        backgroundColor: const Color(0xFF21252B),
-        body: Container(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              Container(
-                alignment: const Alignment(1.0, 1.0),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 12),
-                  child: Text(
-                    _history,
-                    style: GoogleFonts.rubik(
-                        textStyle: const TextStyle(
-                            fontSize: 24, color: Color(0xFF545F61))),
+    double textSize = 30;
+    return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.black, actions: [
+        IconButton(
+          padding: const EdgeInsets.only(right: 28),
+          icon: const Icon(Icons.add_alert),
+          tooltip: 'Información del desarrollador',
+          onPressed: () {
+            if (Responsive.isTablet(context)) {
+           
+              ShowDialog().mostrarDialogo(context);
+              return;
+            }
+            if (Responsive.isPhone(context)) {
+            
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const DialogInfo()));
+            }
+          },
+        ),
+      ]),
+      backgroundColor: Colors.black,
+      body: Container(
+        padding: const EdgeInsets.all(1),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 32),
+                    child: Text(
+                      _history,
+                      maxLines: 1,
+                      style: GoogleFonts.rubik(
+                          textStyle: const TextStyle(
+                              fontSize: 24, color: Color(0xFF545F61))),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                alignment: const Alignment(1.0, 1.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: (Text(
-                    _expression,
-                    style: GoogleFonts.rubik(
-                        textStyle:
-                            const TextStyle(fontSize: 48, color: Colors.white)),
-                  )),
+                Container(
+                  alignment: Alignment.bottomRight,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 32),
+                    child: (Text(
+                      _expression,
+                      maxLines: 1,
+                      style: GoogleFonts.rubik(
+                          textStyle: const TextStyle(
+                              fontSize: 48, color: Colors.white)),
+                    )),
+                  ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CalcButton(
-                    bgcolor: 0xFF00BF45,
-                    text: "AC",
-                    callback: allClear,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    bgcolor: 0xffE3303A,
-                    text: "C",
-                    callback: clear,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "%",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "/",
-                    callback: numClick,
-                    textSize: 20,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CalcButton(
-                    text: "7",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "8",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "9",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "*",
-                    callback: numClick,
-                    textSize: 20,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CalcButton(
-                    text: "4",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "5",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "6",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "-",
-                    callback: numClick,
-                    textSize: 20,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CalcButton(
-                    text: "1",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "2",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "3",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "+",
-                    callback: numClick,
-                    textSize: 20,
-                  )
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  CalcButton(
-                    text: ".",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "0",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "00",
-                    callback: numClick,
-                    textSize: 20,
-                  ),
-                  CalcButton(
-                    text: "=",
-                    callback: evaluate,
-                    textSize: 20,
-                  )
-                ],
-              )
-            ],
-          ),
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Flexible(
+                      child: CalcButton(
+                        bgcolor: 0xFF00BF45,
+                        text: "AC",
+                        callback: allClear,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        bgcolor: 0xffE3303A,
+                        text: "C",
+                        callback: clear,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "%",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "/",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Flexible(
+                      child: CalcButton(
+                        text: "7",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "8",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "9",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "*",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Flexible(
+                      child: CalcButton(
+                        text: "4",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "5",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    CalcButton(
+                      text: "6",
+                      callback: numClick,
+                      textSize: textSize,
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "-",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Flexible(
+                      child: CalcButton(
+                        text: "1",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "2",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "3",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "+",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Flexible(
+                      child: CalcButton(
+                        text: ".",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "0",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "00",
+                        callback: numClick,
+                        textSize: textSize,
+                      ),
+                    ),
+                    Flexible(
+                      child: CalcButton(
+                        text: "=",
+                        callback: evaluate,
+                        textSize: textSize,
+                      ),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
         ),
       ),
     );

@@ -10,22 +10,23 @@ class CalcButton extends StatelessWidget {
       {super.key,
       required this.callback,
       required this.text,
-      this.textSize = 28,this.bgcolor=0xFF21252B});
+      this.textSize = 38,
+      this.bgcolor = 0xFF21252B});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(10),
       child: SizedBox(
-        width: 65,
-        height: 65,
+        width: 75,
+        height: 75,
         child: TextButton(
           onPressed: () => {callback(text)},
           style: TextButton.styleFrom(
-              backgroundColor: Color(bgcolor),
+              backgroundColor: Colors.black,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.all(16.0),
-              textStyle: const TextStyle(fontSize: 20)),
+              textStyle: const TextStyle(fontSize: 50)),
           child: Text(
             text,
             style: GoogleFonts.rubik(textStyle: TextStyle(fontSize: textSize)),
