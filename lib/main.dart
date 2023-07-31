@@ -1,6 +1,6 @@
-import 'package:calculadora_1/responsive.dart';
-import 'package:calculadora_1/widgets/calc_button.dart';
-import 'package:calculadora_1/widgets/dialog_info.dart';
+import 'package:Calculadora/responsive.dart';
+import 'package:Calculadora/widgets/calc_button.dart';
+import 'package:Calculadora/widgets/dialog_info.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:math_expressions/math_expressions.dart';
@@ -35,13 +35,25 @@ class _CalcAppState extends State<CalcApp> {
     });
   }
 
+  bool contienePuntoYCaracterCero(String cadena) {
+    RegExp regex = RegExp(r'\.0$');
+    return regex.hasMatch(cadena);
+  }
+
   void evaluate(String text) {
     Parser p = Parser();
     Expression exp = p.parse(_expression);
     ContextModel cm = ContextModel();
     setState(() {
       _history = _expression;
-      _expression = exp.evaluate(EvaluationType.REAL, cm).toString();
+      double result = exp.evaluate(EvaluationType.REAL, cm);
+
+      if (!contienePuntoYCaracterCero(result.toString())) {
+        _expression = result.toString();
+      } else {
+        int resultAsInteger = result.toInt();
+        _expression = resultAsInteger.toString();
+      }
     });
   }
 
@@ -56,22 +68,25 @@ class _CalcAppState extends State<CalcApp> {
     double textSize = 30;
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.black, actions: [
-        IconButton(
-          padding: const EdgeInsets.only(right: 28),
-          icon: const Icon(Icons.add_alert),
-          tooltip: 'Información del desarrollador',
-          onPressed: () {
-            if (Responsive.isTablet(context)) {
-           
-              ShowDialog().mostrarDialogo(context);
-              return;
-            }
-            if (Responsive.isPhone(context)) {
-            
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const DialogInfo()));
-            }
-          },
+        Visibility(
+          visible: false,
+          child: IconButton(
+            padding: const EdgeInsets.only(right: 28),
+            icon: const Icon(Icons.add_alert),
+            tooltip: 'Información del desarrollador',
+            onPressed: () {
+              if (Responsive.isTablet(context)) {
+                ShowDialog().mostrarDialogo(context);
+                return;
+              }
+              if (Responsive.isPhone(context)) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DialogInfo()));
+              }
+            },
+          ),
         ),
       ]),
       backgroundColor: Colors.black,

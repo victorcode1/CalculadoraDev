@@ -1,4 +1,4 @@
-import 'package:calculadora_1/responsive.dart';
+import 'package:Calculadora/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
