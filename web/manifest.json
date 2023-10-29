@@ -1,6 +1,6 @@
 {
-    "name": "calculadora_1",
-    "short_name": "calculadora_1",
+    "name": "Calculadora",
+    "short_name": "Calculadora",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",
