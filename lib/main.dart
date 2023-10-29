@@ -65,7 +65,7 @@ class _CalcAppState extends State<CalcApp> {
 
   @override
   Widget build(BuildContext context) {
-    double textSize = 30;
+    double textSize = 24;
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.black, actions: [
         Visibility(
@@ -93,7 +93,7 @@ class _CalcAppState extends State<CalcApp> {
       body: Container(
         padding: const EdgeInsets.all(1),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               children: <Widget>[
@@ -125,10 +125,10 @@ class _CalcAppState extends State<CalcApp> {
                 ),
               ],
             ),
-            Column(
+            Wrap(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -163,7 +163,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -196,7 +196,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -227,7 +227,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -260,7 +260,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
