@@ -128,7 +128,7 @@ class _CalcAppState extends State<CalcApp> {
             Wrap(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -163,7 +163,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -196,7 +196,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -227,7 +227,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
@@ -260,7 +260,7 @@ class _CalcAppState extends State<CalcApp> {
                   ],
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Flexible(
                       child: CalcButton(
